@@ -1,0 +1,20 @@
+{
+  "name": "gt",
+  "version": "26.3.21",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "gt": "./gt"
+  },
+  "scripts": {
+    "init": "bun run src/init.ts",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "module": "index.ts",
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
