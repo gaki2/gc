@@ -9,38 +9,29 @@ git clone https://github.com/gaki2/gt
 cd gt
 bun install
 bun run init
-gt
-gt -b fix/custom -o origin/release/26.3.11
-gt --dry-run
-gt --update
 ```
 
-Default behavior:
-
-- Runs `git checkout -b <today> origin/main`
-- Uses today's date as `YY.M.D`
-- Applies an optional prefix from config
-- Runs optional `postCheckout` commands after checkout
-
-Quick setup after cloning:
+## Examples
 
 ```bash
-git clone https://github.com/gaki2/gt
-cd gt
-bun install
-bun run init
+# 1) Create branch from today's local date 
+gt # git checkout -b 26.3.21 origin/main
+
+# 2) Create a specific branch from default origin/main
+gt -b fix/custom # git checkout -b fix/custom origin/main
+
+# 3) Create branch from a different base ref
+gt -b fix/custom -o origin/release/26.3.11 # git checkout -b fix/custom origin/release/26.3.11
+
+# 4) Positional branch name (same as: gt -b feature/login)
+gt feature/login # git checkout -b feature/login origin/main
+
+# 5) Override prefix only for this run
+gt -p hotfix/ # git checkout -b hotfix/26.3.21 origin/main
+
+# 6) Update gt itself (pull + install + relink)
+gt --update # git pull --ff-only origin main && bun install && bun link
 ```
-
-`bun run init` does this:
-
-- makes `gt` executable
-- runs `bun link` so `gt` is available in your terminal
-
-`init` always resolves the repository root from the script location, so it stays safe even if you run it outside the repo root.
-
-If `gt` is still not found afterward, add Bun's global bin directory to your `PATH`.
-
-If you want custom config, create `gt.json` yourself in the repo root.
 
 ## Config
 
