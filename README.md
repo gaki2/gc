@@ -74,3 +74,24 @@ Default values:
 ```bash
 bun test
 ```
+
+## Release
+
+`bun run release` runs `bun test` first and stops if tests fail.
+
+```bash
+# build artifact and create GitHub release from package.json version
+bun run release
+
+# override version/title
+bun run release --version 26.3.22 --title "v26.3.22"
+
+# build tar.gz only (no GitHub release)
+bun run release --build-only
+
+# skip tests (if you really need to)
+bun run release --skip-test
+
+# preview commands only
+bun run release --dry-run
+```

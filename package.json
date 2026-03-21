@@ -8,6 +8,7 @@
   },
   "scripts": {
     "init": "bun run src/init.ts",
+    "release": "bun run src/release.ts",
     "test": "bun test"
   },
   "devDependencies": {
