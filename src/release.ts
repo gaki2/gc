@@ -96,8 +96,8 @@ async function main(argv = process.argv.slice(2)): Promise<number> {
 		const tag = version.startsWith("v") ? version : `v${version}`;
 		const title = options.title ?? tag;
 		const distDir = join(repoRoot, "dist");
-		const stagingDir = join(distDir, "gt");
-		const artifactName = `gt-${tag}.tar.gz`;
+		const stagingDir = join(distDir, "gc");
+		const artifactName = `gc-${tag}.tar.gz`;
 		const artifactPath = join(distDir, artifactName);
 
 		if (!options.skipTest) {
@@ -109,19 +109,19 @@ async function main(argv = process.argv.slice(2)): Promise<number> {
 			await mkdir(stagingDir, { recursive: true });
 
 			await cp(join(repoRoot, "src"), join(stagingDir, "src"), { recursive: true });
-			await cp(join(repoRoot, "gt"), join(stagingDir, "gt"));
+			await cp(join(repoRoot, "gc"), join(stagingDir, "gc"));
 			await cp(join(repoRoot, "package.json"), join(stagingDir, "package.json"));
 			await cp(join(repoRoot, "README.md"), join(stagingDir, "README.md"));
-			if (await Bun.file(join(repoRoot, "gt.json.example")).exists()) {
-				await cp(join(repoRoot, "gt.json.example"), join(stagingDir, "gt.json.example"));
+			if (await Bun.file(join(repoRoot, "gc.json.example")).exists()) {
+				await cp(join(repoRoot, "gc.json.example"), join(stagingDir, "gc.json.example"));
 			}
 			if (await Bun.file(join(repoRoot, "bun.lockb")).exists()) {
 				await cp(join(repoRoot, "bun.lockb"), join(stagingDir, "bun.lockb"));
 			}
-			await chmod(join(stagingDir, "gt"), 0o755);
+			await chmod(join(stagingDir, "gc"), 0o755);
 		}
 
-		await runCommand(["tar", "-czf", artifactPath, "gt"], distDir, options.dryRun);
+		await runCommand(["tar", "-czf", artifactPath, "gc"], distDir, options.dryRun);
 
 		if (options.buildOnly) {
 			console.log(`Built ${artifactPath}`);

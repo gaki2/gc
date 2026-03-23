@@ -20,16 +20,16 @@ async function run(
 async function main(): Promise<number> {
 	try {
 		const repoRoot = resolve(import.meta.dir, "..");
-		const cliPath = join(repoRoot, "gt");
+		const cliPath = join(repoRoot, "gc");
 
 		await chmod(cliPath, 0o755);
 
 		await run(["bun", "link"], { cwd: repoRoot });
 
 		console.log("\nSetup complete.");
-		console.log("You can now run `gt` from your terminal.");
+		console.log("You can now run `gc` from your terminal.");
 		console.log(
-			"If `gt` is not found, add Bun's global bin directory to your PATH.",
+			"If `gc` is not found, add Bun's global bin directory to your PATH.",
 		);
 		return 0;
 	} catch (error) {
