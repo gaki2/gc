@@ -8,10 +8,10 @@ import {
 	normalizePostCheckout,
 	parseArgs,
 	resolveUniqueBranchName,
-	updateGt,
-} from "../src/gt";
+	updateGc,
+} from "../src/gc";
 
-describe("gt", () => {
+describe("gc", () => {
 	test("defaultBranchName uses short local date", () => {
 		expect(defaultBranchName(new Date(2026, 2, 12, 12, 0, 0))).toBe("26.3.12");
 	});
@@ -54,7 +54,7 @@ describe("gt", () => {
 	});
 
 	test("loadConfig reads config file", async () => {
-		const path = "/tmp/gt-config-test.json";
+		const path = "/tmp/gc-config-test.json";
 		await Bun.write(
 			path,
 			JSON.stringify({
@@ -72,9 +72,9 @@ describe("gt", () => {
 		});
 	});
 
-	test("updateGt runs pull install and link", async () => {
+	test("updateGc runs pull install and link", async () => {
 		const calls: Array<{ command: string[]; dryRun?: boolean; cwd?: string }> = [];
-		await updateGt(true, async (command, dryRun, cwd) => {
+		await updateGc(true, async (command, dryRun, cwd) => {
 			calls.push({ command, dryRun, cwd });
 		});
 

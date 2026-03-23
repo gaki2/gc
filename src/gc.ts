@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 
 const DEFAULT_BASE_REF = "origin/main";
-const DEFAULT_LOCAL_CONFIG = "gt.json";
+const DEFAULT_LOCAL_CONFIG = "gc.json";
 const DEFAULT_FALLBACK_CONFIG_DIR = ".config";
 
 export type Config = {
@@ -186,19 +186,19 @@ export function parseArgs(argv: string[]): CliOptions {
 }
 
 export function printHelp(): void {
-	console.log(`gt - branch helper
+	console.log(`gc - branch helper
 
 Usage:
-  gt
-  gt <branch>
-  gt -b fix/custom -o origin/release/26.3.11
+  gc
+  gc <branch>
+  gc -b fix/custom -o origin/release/26.3.11
 
 Options:
   -b, --branch   Branch name override
   -o, --origin   Base ref override
   -p, --prefix   Prefix override
   -c, --config   Config path override
-      --update   Update gt from repository
+      --update   Update gc from repository
       --dry-run  Print commands only
   -h, --help     Show help`);
 }
@@ -228,7 +228,7 @@ export function getToolRepoRoot(): string {
 	return resolve(import.meta.dir, "..");
 }
 
-export async function updateGt(
+export async function updateGc(
 	dryRun = false,
 	runner: (command: string[], dryRun?: boolean, cwd?: string) => Promise<void> =
 		runCommand,
@@ -265,7 +265,7 @@ export async function main(argv = process.argv.slice(2)): Promise<number> {
 			if (options.name || options.branch || options.baseRef || options.prefix || options.config) {
 				throw new Error("`--update` cannot be combined with branch options.");
 			}
-			await updateGt(options.dryRun);
+			await updateGc(options.dryRun);
 			return 0;
 		}
 		const configPath = await resolveConfigPath(options.config);

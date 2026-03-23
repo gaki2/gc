@@ -1,10 +1,10 @@
 {
-  "name": "gt",
+  "name": "gc",
   "version": "26.3.21",
   "private": true,
   "type": "module",
   "bin": {
-    "gt": "./gt"
+    "gc": "./gc"
   },
   "scripts": {
     "init": "bun run src/init.ts",
