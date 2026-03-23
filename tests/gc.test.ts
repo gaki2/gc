@@ -4,6 +4,7 @@ import {
 	applyPrefix,
 	defaultBranchName,
 	determineBranchName,
+	getGlobalConfigPath,
 	loadConfig,
 	normalizePostCheckout,
 	parseArgs,
@@ -33,6 +34,19 @@ describe("gc", () => {
 		const options = parseArgs(["--update", "--dry-run"]);
 		expect(options.update).toBe(true);
 		expect(options.dryRun).toBe(true);
+	});
+
+	test("getGlobalConfigPath uses XDG config home when available", () => {
+		const original = process.env.XDG_CONFIG_HOME;
+		process.env.XDG_CONFIG_HOME = "/tmp/xdg-config";
+
+		expect(getGlobalConfigPath()).toBe("/tmp/xdg-config/gc/gc.json");
+
+		if (original === undefined) {
+			delete process.env.XDG_CONFIG_HOME;
+		} else {
+			process.env.XDG_CONFIG_HOME = original;
+		}
 	});
 
 	test("normalizePostCheckout supports string", () => {

@@ -40,6 +40,7 @@ gc --update # git pull --ff-only origin main && bun install && bun link
 1. `--config <path>`
 2. `<repo-root>/gc.json`
 3. `<repo-root>/.config/gc.json`
+4. `~/.config/gc/gc.json` (or `$XDG_CONFIG_HOME/gc/gc.json`)
 
 Example config:
 

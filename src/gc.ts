@@ -1,3 +1,4 @@
+import { homedir } from "node:os";
 import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
@@ -93,6 +94,11 @@ export async function getRepoRoot(): Promise<string | undefined> {
 	return output.trim() || undefined;
 }
 
+export function getGlobalConfigPath(): string {
+	const configHome = process.env.XDG_CONFIG_HOME ?? join(homedir(), ".config");
+	return join(configHome, "gc", DEFAULT_LOCAL_CONFIG);
+}
+
 export async function resolveConfigPath(
 	explicitPath?: string,
 ): Promise<string | undefined> {
@@ -106,6 +112,7 @@ export async function resolveConfigPath(
 			candidates.push(join(repoRoot, DEFAULT_LOCAL_CONFIG));
 			candidates.push(join(repoRoot, DEFAULT_FALLBACK_CONFIG_DIR, DEFAULT_LOCAL_CONFIG));
 		}
+		candidates.push(getGlobalConfigPath());
 	}
 
 	const seen = new Set<string>();
